@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ATM Pulse Cloud</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            min-height: 100vh;
+            background: #f6f3eb;
+            color: #17332f;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+        }
+
+        /* LEFT SIDE */
+
+        .visual {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+            background:
+                linear-gradient(
+                    rgba(15, 70, 65, 0.78),
+                    rgba(15, 70, 65, 0.88)
+                ),
+                url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1400&q=85")
+                center / cover;
+            display: flex;
+            align-items: flex-end;
+            padding: 8%;
+            color: white;
+        }
+
+        .visual-content {
+            max-width: 540px;
+        }
+
+        .logo-small {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            background: rgba(255,255,255,0.13);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 13px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .visual h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(40px, 5vw, 65px);
+            line-height: 1.05;
+            margin-bottom: 16px;
+        }
+
+        .visual p {
+            max-width: 500px;
+            color: rgba(255,255,255,0.82);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .feature-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .feature {
+            background: rgba(255,255,255,0.11);
+            border: 1px solid rgba(255,255,255,0.16);
+            padding: 9px 12px;
+            border-radius: 9px;
+            font-size: 11px;
+        }
+
+        /* RIGHT SIDE */
+
+        .form-side {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 9%;
+            background: #fff;
+        }
+
+        .content {
+            width: 100%;
+            max-width: 430px;
+        }
+
+        .icon {
+            width: 58px;
+            height: 58px;
+            background: #e6f2ef;
+            border-radius: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .content .tag {
+            color: #176b63;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .content h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 36px;
+            margin-top: 8px;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #71817e;
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .create-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            text-decoration: none;
+            background: #176b63;
+            color: white;
+            padding: 15px;
+            border-radius: 11px;
+            font-size: 14px;
+            font-weight: 800;
+            transition: 0.2s;
+            box-shadow: 0 10px 25px rgba(23,107,99,0.18);
+        }
+
+        .create-btn:hover {
+            background: #0e514b;
+            transform: translateY(-2px);
+        }
+
+        .info-box {
+            margin-top: 22px;
+            padding: 16px;
+            border-radius: 12px;
+            background: #f7f3eb;
+            border: 1px solid #e7e0d2;
+        }
+
+        .info-box strong {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .info-box span {
+            color: #71817e;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 35px;
+            color: #9aa7a4;
+            font-size: 10px;
+        }
+
+        @media (max-width: 850px) {
+
+            .page {
+                grid-template-columns: 1fr;
+            }
+
+            .visual {
+                min-height: 43vh;
+                padding: 35px 7%;
+                align-items: flex-end;
+            }
+
+            .visual h1 {
+                font-size: 40px;
+            }
+
+            .form-side {
+                padding: 45px 7%;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            .visual {
+                min-height: 38vh;
+            }
+
+            .visual p {
+                display: none;
+            }
+
+            .feature-row {
+                margin-top: 15px;
+            }
+
+            .content h2 {
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- LEFT -->
+
+    <section class="visual">
+
+        <div class="visual-content">
+
+            <div class="logo-small">
+                🏧 ATM PULSE CLOUD
+            </div>
+
+            <h1>
+                Know before<br>
+                you go.
+            </h1>
+
+            <p>
+                A cloud-powered ATM monitoring platform that
+                helps you discover ATM availability, cash status,
+                queue information and nearby ATMs.
+            </p>
+
+            <div class="feature-row">
+
+                <span class="feature">
+                    ☁️ Cloud Powered
+                </span>
+
+                <span class="feature">
+                    📍 Location Based
+                </span>
+
+                <span class="feature">
+                    🔄 Real-Time Status
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RIGHT -->
+
+    <section class="form-side">
+
+        <div class="content">
+
+            <div class="icon">
+                🏧
+            </div>
+
+            <span class="tag">
+                Welcome to ATM Pulse
+            </span>
+
+            <h2>
+                Create your account
+            </h2>
+
+            <p class="description">
+                Create a free account to access the ATM Pulse
+                Cloud dashboard and discover available ATMs
+                around your location.
+            </p>
+
+
+            <a
+                href="register.html"
+                class="create-btn"
+            >
+                Create Account
+                <span>→</span>
+            </a>
+
+
+            <div class="info-box">
+
+                <strong>
+                    🔐 Secure Cloud Access
+                </strong>
+
+                <span>
+                    Your account is securely managed using
+                    Firebase Authentication.
+                </span>
+
+            </div>
+
+
+            <p class="footer-text">
+                ATM Pulse Cloud · Real-Time ATM Availability
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+</body>
+</html>

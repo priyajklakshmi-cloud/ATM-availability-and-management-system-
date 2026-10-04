@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | ATM Pulse Cloud</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at top right,
+                    #e6f1ee,
+                    transparent 35%
+                ),
+                #f6f3eb;
+            color: #17332f;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 35px 20px;
+        }
+
+        .register-card {
+            width: 100%;
+            max-width: 960px;
+            min-height: 590px;
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            box-shadow:
+                0 25px 70px rgba(23,51,47,0.11);
+            border: 1px solid #e2e9e6;
+        }
+
+        /* LEFT */
+
+        .image-side {
+            position: relative;
+            background:
+                linear-gradient(
+                    rgba(18,87,80,0.78),
+                    rgba(10,58,54,0.92)
+                ),
+                url("https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1000&q=85")
+                center / cover;
+            color: white;
+            padding: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .brand-icon {
+            width: 39px;
+            height: 39px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+        }
+
+        .image-content h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 42px;
+            line-height: 1.12;
+            margin-bottom: 13px;
+        }
+
+        .image-content p {
+            color: rgba(255,255,255,0.78);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .cloud-note {
+            font-size: 11px;
+            color: rgba(255,255,255,0.65);
+        }
+
+        /* RIGHT */
+
+        .form-side {
+            padding: 45px 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-content {
+            width: 100%;
+            max-width: 420px;
+            margin: auto;
+        }
+
+        .back {
+            display: inline-block;
+            text-decoration: none;
+            color: #71817e;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .back:hover {
+            color: #176b63;
+        }
+
+        .tag {
+            color: #176b63;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .form-content h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 33px;
+            margin-top: 7px;
+            margin-bottom: 7px;
+        }
+
+        .subtitle {
+            color: #71817e;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 7px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #dce6e3;
+            border-radius: 10px;
+            background: #fafcfc;
+            outline: none;
+            font-family: inherit;
+            font-size: 13px;
+            color: #17332f;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #176b63;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(23,107,99,0.08);
+        }
+
+        .password-note {
+            color: #8b9996;
+            font-size: 10px;
+            margin-top: 5px;
+        }
+
+        .error {
+            display: none;
+            background: #fff0ef;
+            border: 1px solid #f1cbc8;
+            color: #b63d38;
+            padding: 10px 12px;
+            border-radius: 9px;
+            font-size: 11px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .create-btn {
+            width: 100%;
+            border: none;
+            background: #176b63;
+            color: white;
+            padding: 14px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 5px;
+        }
+
+        .create-btn:hover {
+            background: #0e514b;
+            transform: translateY(-1px);
+        }
+
+        .create-btn:disabled {
+            opacity: 0.6;
+            cursor: wait;
+            transform: none;
+        }
+
+        .secure {
+            text-align: center;
+            color: #8a9995;
+            font-size: 10px;
+            margin-top: 17px;
+        }
+
+        @media (max-width: 800px) {
+
+            .register-card {
+                grid-template-columns: 1fr;
+                max-width: 520px;
+            }
+
+            .image-side {
+                min-height: 240px;
+                padding: 30px;
+            }
+
+            .image-content h1 {
+                font-size: 32px;
+            }
+
+            .cloud-note {
+                display: none;
+            }
+
+            .form-side {
+                padding: 35px 30px;
+            }
+
+        }
+
+        @media (max-width: 450px) {
+
+            .page {
+                padding: 15px;
+            }
+
+            .register-card {
+                border-radius: 18px;
+            }
+
+            .image-side {
+                min-height: 210px;
+            }
+
+            .form-side {
+                padding: 30px 22px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="register-card">
+
+        <!-- LEFT -->
+
+        <section class="image-side">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    🏧
+                </div>
+
+                ATM Pulse Cloud
+
+            </div>
+
+
+            <div class="image-content">
+
+                <h1>
+                    Your ATM,<br>
+                    your way.
+                </h1>
+
+                <p>
+                    Create your account and start discovering
+                    ATM availability, cash status, queues and
+                    nearby ATM locations.
+                </p>
+
+            </div>
+
+
+            <div class="cloud-note">
+                ☁️ Secured with Firebase Authentication
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT -->
+
+        <section class="form-side">
+
+            <div class="form-content">
+
+                <a
+                    href="index.html"
+                    class="back"
+                >
+                    ← Back
+                </a>
+
+
+                <span class="tag">
+                    Create Account
+                </span>
+
+
+                <h2>
+                    Get started
+                </h2>
+
+
+                <p class="subtitle">
+                    Enter your details to create your
+                    ATM Pulse Cloud account.
+                </p>
+
+
+                <div
+                    class="error"
+                    id="errorMessage"
+                ></div>
+
+
+                <form id="registerForm">
+
+                    <!-- NAME -->
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Create a password"
+                            autocomplete="new-password"
+                            minlength="6"
+                            required
+                        >
+
+                        <div class="password-note">
+                            Password must contain at least 6 characters.
+                        </div>
+
+                    </div>
+
+
+                    <!-- CONFIRM -->
+
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Re-enter your password"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="create-btn"
+                        id="createBtn"
+                    >
+                        Create Account →
+                    </button>
+
+                </form>
+
+
+                <p class="secure">
+                    🔒 Your account is securely stored using Firebase.
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+
+<script type="module">
+
+    import {
+        auth,
+        database,
+        createUserWithEmailAndPassword,
+        ref,
+        set
+    } from "./firebase.js";
+
+
+    const form =
+        document.getElementById("registerForm");
+
+    const createBtn =
+        document.getElementById("createBtn");
+
+    const errorMessage =
+        document.getElementById("errorMessage");
+
+
+    function showError(message) {
+
+        errorMessage.textContent = message;
+
+        errorMessage.style.display = "block";
+
+    }
+
+
+    form.addEventListener(
+        "submit",
+        async (event) => {
+
+            event.preventDefault();
+
+
+            errorMessage.style.display = "none";
+
+
+            const name =
+                document.getElementById(
+                    "name"
+                ).value.trim();
+
+
+            const email =
+                document.getElementById(
+                    "email"
+                ).value.trim();
+
+
+            const password =
+                document.getElementById(
+                    "password"
+                ).value;
+
+
+            const confirmPassword =
+                document.getElementById(
+                    "confirmPassword"
+                ).value;
+
+
+            /* NAME VALIDATION */
+
+            if (name.length < 2) {
+
+                showError(
+                    "Please enter your full name."
+                );
+
+                return;
+            }
+
+
+            /* PASSWORD VALIDATION */
+
+            if (password.length < 6) {
+
+                showError(
+                    "Password must contain at least 6 characters."
+                );
+
+                return;
+            }
+
+
+            /* CONFIRM PASSWORD */
+
+            if (password !== confirmPassword) {
+
+                showError(
+                    "Passwords do not match."
+                );
+
+                return;
+            }
+
+
+            createBtn.disabled = true;
+
+            createBtn.textContent =
+                "Creating account...";
+
+
+            try {
+
+                /* CREATE FIREBASE ACCOUNT */
+
+                const userCredential =
+                    await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+
+                const user =
+                    userCredential.user;
+
+
+                /* SAVE USER PROFILE */
+
+                await set(
+                    ref(
+                        database,
+                        "users/" + user.uid
+                    ),
+                    {
+
+                        name: name,
+
+                        email: email,
+
+                        createdAt:
+                            new Date().toISOString()
+
+                    }
+                );
+
+
+                /* SAVE USER NAME */
+
+                localStorage.setItem(
+                    "userName",
+                    name
+                );
+
+
+                /* OPEN DASHBOARD */
+
+                window.location.href =
+                    "dashboard.html";
+
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+
+                let message =
+                    "Unable to create account. Please try again.";
+
+
+                if (
+                    error.code ===
+                    "auth/email-already-in-use"
+                ) {
+
+                    message =
+                        "This email is already registered.";
+
+                }
+
+                else if (
+                    error.code ===
+                    "auth/invalid-email"
+                ) {
+
+                    message =
+                        "Please enter a valid email address.";
+
+                }
+
+                else if (
+                    error.code ===
+                    "auth/weak-password"
+                ) {
+
+                    message =
+                        "Password is too weak. Use at least 6 characters.";
+
+                }
+
+                else if (
+                    error.code ===
+                    "auth/network-request-failed"
+                ) {
+
+                    message =
+                        "Network error. Please check your internet connection.";
+
+                }
+
+
+                showError(message);
+
+
+                createBtn.disabled = false;
+
+                createBtn.textContent =
+                    "Create Account →";
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>

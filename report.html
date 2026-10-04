@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Report ATM Issue | ATM Pulse Cloud</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #176b63;
+            --primary-dark: #0e514b;
+            --gold: #d9a441;
+            --dark: #17332f;
+            --muted: #71817e;
+            --cream: #f7f3eb;
+            --white: #ffffff;
+            --border: #dfe8e5;
+            --light: #f5f8f7;
+            --success: #16864c;
+            --danger: #d9534f;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            background:
+                radial-gradient(
+                    circle at top right,
+                    #e7f2ef 0,
+                    transparent 32%
+                ),
+                #f5f8f7;
+            color: var(--dark);
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+
+        header {
+            height: 76px;
+            background: rgba(255,255,255,0.96);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(12px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 43px;
+            height: 43px;
+            background: var(--primary);
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+        }
+
+        .brand h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 21px;
+        }
+
+        .brand p {
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--primary);
+            border: 1px solid #cbdad7;
+            padding: 9px 15px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            background: white;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* PAGE */
+
+        .page {
+            max-width: 1050px;
+            margin: auto;
+            padding: 45px 6% 65px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 7px 13px;
+            border-radius: 30px;
+            background: #e5f2ef;
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .intro h2 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(29px, 5vw, 43px);
+            margin-bottom: 9px;
+        }
+
+        .intro p {
+            color: var(--muted);
+            max-width: 600px;
+            margin: auto;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* CARD */
+
+        .report-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            box-shadow: 0 18px 45px rgba(23,51,47,0.08);
+            overflow: hidden;
+        }
+
+        .atm-preview {
+            background:
+                linear-gradient(
+                    120deg,
+                    rgba(23,107,99,0.97),
+                    rgba(14,81,75,0.94)
+                );
+            color: white;
+            padding: 25px 28px;
+        }
+
+        .atm-preview-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: rgba(255,255,255,0.68);
+            font-weight: 800;
+        }
+
+        .atm-preview h3 {
+            margin-top: 5px;
+            font-size: 22px;
+        }
+
+        .atm-preview p {
+            margin-top: 5px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.78);
+        }
+
+        .form-area {
+            padding: 30px;
+        }
+
+        .form-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .form-subtitle {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 23px;
+        }
+
+        /* FORM */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .required {
+            color: var(--danger);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            background: #fbfcfc;
+            border-radius: 11px;
+            padding: 13px 14px;
+            font-family: inherit;
+            font-size: 13px;
+            color: var(--dark);
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(23,107,99,0.08);
+        }
+
+        textarea {
+            min-height: 125px;
+            resize: vertical;
+        }
+
+        .issue-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .issue-option {
+            position: relative;
+        }
+
+        .issue-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .issue-option label {
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 15px;
+            cursor: pointer;
+            margin: 0;
+            background: #fbfcfc;
+            transition: 0.2s;
+        }
+
+        .issue-option label:hover {
+            border-color: #a9c8c2;
+            transform: translateY(-2px);
+        }
+
+        .issue-option input:checked + label {
+            border-color: var(--primary);
+            background: #edf7f4;
+            color: var(--primary);
+        }
+
+        .issue-icon {
+            font-size: 21px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .issue-name {
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .issue-desc {
+            display: block;
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 500;
+            margin-top: 3px;
+        }
+
+        /* NOTE */
+
+        .notice {
+            background: #fff8e8;
+            border: 1px solid #f1dfb2;
+            border-radius: 12px;
+            padding: 13px;
+            margin-bottom: 22px;
+            font-size: 11px;
+            color: #75591c;
+            line-height: 1.6;
+        }
+
+        /* BUTTON */
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            background: var(--primary);
+            color: white;
+            padding: 14px;
+            border-radius: 11px;
+            font-family: inherit;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        /* SUCCESS */
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 45px 25px;
+        }
+
+        .success-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #e5f7ed;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin: 0 auto 17px;
+        }
+
+        .success-message h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 27px;
+            margin-bottom: 7px;
+        }
+
+        .success-message p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+            max-width: 470px;
+            margin: auto;
+        }
+
+        .dashboard-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 650px) {
+
+            header {
+                padding: 0 5%;
+            }
+
+            .brand h1 {
+                font-size: 17px;
+            }
+
+            .brand p {
+                display: none;
+            }
+
+            .page {
+                padding: 32px 5% 50px;
+            }
+
+            .form-area {
+                padding: 22px;
+            }
+
+            .issue-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .back-btn {
+                padding: 8px 11px;
+                font-size: 11px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🏧
+        </div>
+
+        <div>
+            <h1>ATM Pulse Cloud</h1>
+            <p>Real-Time ATM Availability</p>
+        </div>
+
+    </div>
+
+    <a href="dashboard.html" class="back-btn">
+        ← Dashboard
+    </a>
+
+</header>
+
+
+<!-- PAGE -->
+
+<main class="page">
+
+    <div class="intro">
+
+        <span class="tag">
+            🚨 ATM ISSUE REPORTING
+        </span>
+
+        <h2>
+            Help us improve ATM availability
+        </h2>
+
+        <p>
+            Found a problem with this ATM?
+            Report it so the information can be updated
+            and other users can avoid unnecessary visits.
+        </p>
+
+    </div>
+
+
+    <section class="report-card">
+
+        <!-- ATM INFORMATION -->
+
+        <div class="atm-preview">
+
+            <span class="atm-preview-label">
+                Reporting issue for
+            </span>
+
+            <h3 id="atmName">
+                ATM Terminal
+            </h3>
+
+            <p id="atmLocation">
+                📍 ATM location
+            </p>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <div class="form-area" id="formArea">
+
+            <h3 class="form-title">
+                Report an issue
+            </h3>
+
+            <p class="form-subtitle">
+                Select the problem you experienced at this ATM.
+            </p>
+
+
+            <form id="reportForm">
+
+                <!-- ISSUE TYPE -->
+
+                <div class="form-group">
+
+                    <label>
+                        What is the problem?
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="issue-grid">
+
+                        <div class="issue-option">
+
+                            <input
+                                type="radio"
+                                name="issueType"
+                                id="cashIssue"
+                                value="Cash Unavailable"
+                                required
+                            >
+
+                            <label for="cashIssue">
+
+                                <span class="issue-icon">
+                                    💵
+                                </span>
+
+                                <span class="issue-name">
+                                    Cash Unavailable
+                                </span>
+
+                                <span class="issue-desc">
+                                    ATM has no cash
+                                </span>
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="issue-option">
+
+                            <input
+                                type="radio"
+                                name="issueType"
+                                id="offlineIssue"
+                                value="ATM Offline"
+                            >
+
+                            <label for="offlineIssue">
+
+                                <span class="issue-icon">
+                                    🔴
+                                </span>
+
+                                <span class="issue-name">
+                                    ATM Offline
+                                </span>
+
+                                <span class="issue-desc">
+                                    Machine is not working
+                                </span>
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="issue-option">
+
+                            <input
+                                type="radio"
+                                name="issueType"
+                                id="cardIssue"
+                                value="Card Reader Problem"
+                            >
+
+                            <label for="cardIssue">
+
+                                <span class="issue-icon">
+                                    💳
+                                </span>
+
+                                <span class="issue-name">
+                                    Card Reader Problem
+                                </span>
+
+                                <span class="issue-desc">
+                                    Card cannot be read
+                                </span>
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="issue-option">
+
+                            <input
+                                type="radio"
+                                name="issueType"
+                                id="queueIssue"
+                                value="Long Queue"
+                            >
+
+                            <label for="queueIssue">
+
+                                <span class="issue-icon">
+                                    👥
+                                </span>
+
+                                <span class="issue-name">
+                                    Long Queue
+                                </span>
+
+                                <span class="issue-desc">
+                                    Too many people waiting
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SEVERITY -->
+
+                <div class="form-group">
+
+                    <label for="severity">
+                        Issue severity
+                        <span class="required">*</span>
+                    </label>
+
+                    <select id="severity" required>
+
+                        <option value="">
+                            Select severity
+                        </option>
+
+                        <option value="Low">
+                            Low — Minor inconvenience
+                        </option>
+
+                        <option value="Medium">
+                            Medium — Service affected
+                        </option>
+
+                        <option value="High">
+                            High — ATM cannot be used
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Additional details
+                        <span class="required">*</span>
+                    </label>
+
+                    <textarea
+                        id="description"
+                        placeholder="Tell us what happened at the ATM..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <div class="notice">
+
+                    ℹ️ Your report will be stored securely in
+                    ATM Pulse Cloud and can help improve the
+                    accuracy of ATM availability information.
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    id="submitBtn"
+                >
+                    🚨 Submit Issue Report
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- SUCCESS -->
+
+        <div
+            class="success-message"
+            id="successMessage"
+        >
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h3>
+                Report Submitted
+            </h3>
+
+            <p>
+                Thank you for helping improve ATM Pulse Cloud.
+                Your issue report has been successfully recorded.
+            </p>
+
+            <a
+                href="dashboard.html"
+                class="dashboard-btn"
+            >
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    ATM Pulse Cloud · Real-Time ATM Availability
+    and Status Monitoring System
+
+</footer>
+
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+    import {
+        auth,
+        database,
+        onAuthStateChanged,
+        ref,
+        push
+    } from "./firebase.js";
+
+
+    /* =====================================
+       CHECK LOGIN
+    ===================================== */
+
+    let currentUser = null;
+
+    onAuthStateChanged(auth, (user) => {
+
+        if (!user) {
+
+            window.location.href = "index.html";
+
+            return;
+        }
+
+        currentUser = user;
+
+    });
+
+
+    /* =====================================
+       GET SELECTED ATM
+    ===================================== */
+
+    const savedATM =
+        localStorage.getItem("selectedATM");
+
+
+    let selectedATM = null;
+
+
+    if (savedATM) {
+
+        try {
+
+            selectedATM =
+                JSON.parse(savedATM);
+
+            document.getElementById(
+                "atmName"
+            ).textContent =
+                selectedATM.name ||
+                "ATM Terminal";
+
+
+            document.getElementById(
+                "atmLocation"
+            ).textContent =
+                "📍 " +
+                (
+                    selectedATM.location ||
+                    "Location unavailable"
+                );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Invalid ATM data",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =====================================
+       FORM SUBMIT
+    ===================================== */
+
+    document
+        .getElementById("reportForm")
+        .addEventListener(
+            "submit",
+            async (event) => {
+
+                event.preventDefault();
+
+
+                if (!currentUser) {
+
+                    alert(
+                        "Please login before submitting a report."
+                    );
+
+                    return;
+                }
+
+
+                const issueType =
+                    document.querySelector(
+                        'input[name="issueType"]:checked'
+                    );
+
+
+                const severity =
+                    document.getElementById(
+                        "severity"
+                    ).value;
+
+
+                const description =
+                    document.getElementById(
+                        "description"
+                    ).value.trim();
+
+
+                if (!issueType) {
+
+                    alert(
+                        "Please select an issue type."
+                    );
+
+                    return;
+                }
+
+
+                if (!selectedATM) {
+
+                    alert(
+                        "ATM information is missing. Please select an ATM from the dashboard."
+                    );
+
+                    return;
+                }
+
+
+                const submitBtn =
+                    document.getElementById(
+                        "submitBtn"
+                    );
+
+
+                submitBtn.disabled = true;
+
+                submitBtn.textContent =
+                    "Submitting report...";
+
+
+                try {
+
+                    const reportsRef =
+                        ref(
+                            database,
+                            "reports"
+                        );
+
+
+                    await push(
+                        reportsRef,
+                        {
+
+                            userId:
+                                currentUser.uid,
+
+                            userEmail:
+                                currentUser.email,
+
+                            atmId:
+                                selectedATM.id ||
+                                "unknown",
+
+                            atmName:
+                                selectedATM.name ||
+                                "ATM Terminal",
+
+                            bank:
+                                selectedATM.bank ||
+                                "Unknown Bank",
+
+                            location:
+                                selectedATM.location ||
+                                "Unknown Location",
+
+                            issueType:
+                                issueType.value,
+
+                            severity:
+                                severity,
+
+                            description:
+                                description,
+
+                            status:
+                                "Pending",
+
+                            reportedAt:
+                                new Date().toISOString()
+
+                        }
+                    );
+
+
+                    document.getElementById(
+                        "formArea"
+                    ).style.display = "none";
+
+
+                    document.getElementById(
+                        "successMessage"
+                    ).style.display = "block";
+
+
+                }
+
+                catch (error) {
+
+                    console.error(error);
+
+                    alert(
+                        "Unable to submit the report. Please try again."
+                    );
+
+
+                    submitBtn.disabled = false;
+
+                    submitBtn.textContent =
+                        "🚨 Submit Issue Report";
+
+                }
+
+            }
+        );
+
+</script>
+
+</body>
+</html>
